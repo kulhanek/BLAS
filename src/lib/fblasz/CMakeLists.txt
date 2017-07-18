@@ -63,13 +63,14 @@ ENDIF(LIBS_STATIC)
 # create shared library --------------------------------------------------------
 IF(LIBS_SHARED)
     ADD_LIBRARY(fblasz_shared SHARED ${FBLASZ_SRC})
-
-    TARGET_LINK_LIBRARIES(fblasz_shared fblasd_shared)
-
-    SET_TARGET_PROPERTIES(fblasz_shared PROPERTIES
+        SET_TARGET_PROPERTIES(fblasz_shared PROPERTIES
                             OUTPUT_NAME fblasz
                             CLEAN_DIRECT_OUTPUT 1
                             VERSION ${BLAS_VERSION})
+                            
+    ADD_DEPENDENCIES(fblasz_shared fblasd_shared)
+    TARGET_LINK_LIBRARIES(fblasz_shared fblasd_shared)
+
     INSTALL(TARGETS fblasz_shared
             DESTINATION lib)
 ENDIF(LIBS_SHARED)
